@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import ollama
 
-DISCORD_TOKEN = 'DiscordBot Token'
+DISCORD_TOKEN = 'DISCORD_TOKEN'
 MODEL = "mistral"
 
 intents = discord.Intents.default()
@@ -37,7 +37,9 @@ async def chat(ctx):
 
     print(message_history)
 
-    response = generate_response(message_history)
+    async with channel.typing():
+        response = generate_response(message_history)
+
     if response:
         if len(response) > 2000:
             print("The response was too long and has been truncated.")
