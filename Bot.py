@@ -2,13 +2,13 @@ import discord
 from discord.ext import commands
 import ollama
 
-DISCORD_TOKEN = 'Discord Bot Token'
+DISCORD_TOKEN = 'DiscordBot Token'
 MODEL = "mistral"
 
 intents = discord.Intents.default()
 intents.typing = True
 intents.message_content = True
-bot = commands.Bot(command_prefix="/", intents=intents, heartbeat_timeout=60)
+bot = commands.Bot(command_prefix="!", intents=intents, heartbeat_timeout=60)
 
 @bot.event
 async def on_ready():
@@ -21,8 +21,6 @@ async def chat(ctx):
 
     if ctx.message.content == " ":
          return
-    print(ctx.author.name)
-    print(bot.user.name)
 
     channel = ctx.channel
     message_history = []
@@ -31,7 +29,7 @@ async def chat(ctx):
         if message.author == bot.user:
             message_history.append({'role': 'assistant', 'content': message.content})
         else:
-            message_history.append({'role': 'user', 'content': message.content})
+            message_history.append({'role': 'user', 'content': message.content[len('!chat'):]})
 
     system_message = {'role': 'system', 'content': "You are an artificial intelligence assistant. You give helpful, detailed, and polite answers to the user's questions."}
     message_history.append(system_message)
