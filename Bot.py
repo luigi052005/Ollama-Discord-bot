@@ -20,16 +20,13 @@ pull_model(MODEL)
 async def on_ready():
     print(f'We have logged in as {bot.user}')
 
-@bot.command(name="chat", description="Chat with Ollama")
+@bot.command(name="chat", description=f"Chat with {bot.user}")
 async def chat(ctx):
     if ctx.author.name == bot.user.name:
         return
-    if ctx.message.content == " ":
+    if ctx.message.content == "!chat":
         return
 
-    if ctx.message.attachments != []:
-        image = ctx.message.attachments[0]
-        print(image)
     channel = ctx.channel
     message_history = []
     await get_history(message_history ,ctx, bot)
