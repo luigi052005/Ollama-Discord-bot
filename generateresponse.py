@@ -5,6 +5,7 @@ MODEL = config.CONFIG["MODEL"]
 
 
 def generate_response(message_history):
+    print(ollama.ProgressResponse)
     response = ollama.chat(
         model=MODEL,
         messages=message_history,

@@ -14,7 +14,7 @@ intents.typing = True
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents, heartbeat_timeout=120)
 
-pull_model()
+pull_model(MODEL)
 
 @bot.event
 async def on_ready():
@@ -27,6 +27,9 @@ async def chat(ctx):
     if ctx.message.content == " ":
         return
 
+    if ctx.message.attachments != []:
+        image = ctx.message.attachments[0]
+        print(image)
     channel = ctx.channel
     message_history = []
     await get_history(message_history ,ctx, bot)
@@ -34,5 +37,7 @@ async def chat(ctx):
     async with channel.typing():
         response = generate_response(message_history)
     await send_response(response, ctx)
+
+
 
 bot.run(DISCORD_TOKEN)
