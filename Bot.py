@@ -29,7 +29,7 @@ async def chat(ctx):
 
     channel = ctx.channel
     message_history = []
-    await get_history(message_history ,ctx, bot)
+    await get_history(message_history, ctx, bot)
 
     async with channel.typing():
         response = generate_response(message_history)
