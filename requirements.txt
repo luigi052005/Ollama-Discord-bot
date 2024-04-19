@@ -1,4 +1,2 @@
 ollama
 discord
-base64
-aiohttp
