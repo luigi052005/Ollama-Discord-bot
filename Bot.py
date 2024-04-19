@@ -1,8 +1,10 @@
 import discord
 from discord.ext import commands
-import ollama
 import config
-from pullmodel import pullmodel
+from pullmodel import pull_model
+from generateresponse import generate_response
+from history import get_history
+from sendresponse import send_response
 
 DISCORD_TOKEN = config.CONFIG["DISCORD_TOKEN"]
 MODEL = config.CONFIG["MODEL"]
@@ -12,7 +14,7 @@ intents.typing = True
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents, heartbeat_timeout=120)
 
-pullmodel()
+pull_model()
 
 @bot.event
 async def on_ready():
@@ -22,47 +24,15 @@ async def on_ready():
 async def chat(ctx):
     if ctx.author.name == bot.user.name:
         return
-
     if ctx.message.content == " ":
-         return
+        return
 
     channel = ctx.channel
     message_history = []
-
-    async for message in channel.history(limit=10):
-        if message.author == bot.user:
-            message_history.append({'role': 'assistant', 'content': message.content})
-        else:
-            message_history.append({'role': 'user', 'content': message.content[len('!chat'):]})
-
-    system_message = {'role': 'system', 'content': "You are an artificial intelligence assistant. You give helpful, detailed, and polite answers to the user's questions."}
-    message_history.append(system_message)
-    message_history.reverse()
-
-    print(message_history)
+    await get_history(message_history ,ctx, bot)
 
     async with channel.typing():
         response = generate_response(message_history)
-
-    if response:
-        if len(response) > 2000:
-            print("The response was too long and has been truncated.")
-            chunks = [response[i:i + 2000] for i in range(0, len(response), 2000)]
-            for chunk in chunks:
-                await ctx.channel.send(chunk)
-        else:
-            await ctx.channel.send(response)
-    else:
-        print("Failed to get response.")
-
-def generate_response(message_history):
-    response = ollama.chat(
-        model=MODEL,
-        messages=message_history,
-        options={
-            'num_predict': 2048,
-        }
-    )
-    return response['message']['content']
+    await send_response(response, ctx)
 
 bot.run(DISCORD_TOKEN)
