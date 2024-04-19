@@ -1,14 +1,18 @@
 import discord
 from discord.ext import commands
 import ollama
+import config
+from pullmodel import pullmodel
 
-DISCORD_TOKEN = 'DISCORD_TOKEN'
-MODEL = "mistral"
+DISCORD_TOKEN = config.CONFIG["DISCORD_TOKEN"]
+MODEL = config.CONFIG["MODEL"]
 
 intents = discord.Intents.default()
 intents.typing = True
 intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents, heartbeat_timeout=60)
+bot = commands.Bot(command_prefix="!", intents=intents, heartbeat_timeout=120)
+
+pullmodel()
 
 @bot.event
 async def on_ready():
@@ -56,7 +60,7 @@ def generate_response(message_history):
         model=MODEL,
         messages=message_history,
         options={
-            'num_predict': 768,
+            'num_predict': 2048,
         }
     )
     return response['message']['content']
