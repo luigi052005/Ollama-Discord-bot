@@ -7,7 +7,6 @@ async def get_history(message_history, channel, bot):
             #add user message to history
             if message.content[len('!chat'):] != "":
                 message_history.append({'role': 'user', 'content': message.content[len('!chat'):]})
-                print(message.content[len('!chat'):])
 
         system_message = {'role': 'system', 'content': config.CONFIG['SYSTEM']}
         message_history.append(system_message)
