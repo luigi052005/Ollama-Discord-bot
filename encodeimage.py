@@ -1,7 +1,7 @@
 import base64
 import aiohttp
 
-async def encode_image(image_base64, message, url):
+async def encode_image(url):
     if url[0:26] == 'https://cdn.discordapp.com':
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as resp:
