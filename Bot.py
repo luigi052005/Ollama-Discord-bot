@@ -27,7 +27,7 @@ async def none(ctx):
 @bot.event
 async def on_message(message):
     mention = f'<@{bot.user.id}>'
-    if message.content.startswith(mention):
+    if mention in message.content:
         if message.author.name == bot.user.name:
             return
         if message.content == mention:
