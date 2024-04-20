@@ -1,6 +1,4 @@
 import config
-from encodeimage import encode_image
-from txtcontent import  txt_content
 from getattachments import get_attachments
 
 async def get_history(message_history, ctx, bot):
@@ -14,17 +12,6 @@ async def get_history(message_history, ctx, bot):
         if message.author != bot.user:
             if message.attachments:
                 image_base64, content = await get_attachments(message, bot, image_base64, content)
-                #for attachment in message.attachments:
-                    #image_base64 = None
-                    #content = None
-                    #if message.content[len(f'<@{bot.user.id}>'):] != "":
-                        #if attachment.content_type.startswith('image/'):
-                            #url = attachment.url
-                            #image_base64 = await encode_image(url)
-                        #elif attachment.content_type.endswith(('.txt')):
-                            #url = attachment.url
-                            #content = await txt_content(url)
-                            #print("CONTENT:", content)
             message_history.append({
                 'role': 'user',
                 'content':f"{message.author.name}:{message.content[len(f'<@{bot.user.id}>'):]}{[content] if content else ""}",

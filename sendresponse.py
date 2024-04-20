@@ -1,4 +1,3 @@
-
 async def send_response(response, ctx):
     if response:
         if len(response) > 2000:
