@@ -15,7 +15,7 @@ async def get_history(message_history, ctx, bot):
             user_message = message.content.replace(f'<@{bot.user.id}>', '')
             message_history.append({
                 'role': 'user',
-                'content':f"{message.author.name}: {user_message} {"FILE:"}{[txt] if txt else ""}",
+                'content':f"{message.author.name}: {user_message} {[txt] if txt else ""}",
                 'images': [image_base64] if image_base64 else []
             })
 
