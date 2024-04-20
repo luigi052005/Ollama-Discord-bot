@@ -6,5 +6,5 @@ async def txt_content(url):
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as resp:
                 txt = await resp.read()
-                txt = txt.decode('utf-8')
+                #txt = txt.decode('utf-8')
                 return txt

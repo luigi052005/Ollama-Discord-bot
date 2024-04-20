@@ -36,8 +36,6 @@ async def on_message(message):
         if mention in message.content:
             if message.author == bot.user:
                 return
-            if message.content == mention:
-                return
 
             await respond(message)
         else:

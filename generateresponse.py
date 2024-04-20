@@ -1,15 +1,12 @@
 import ollama
 import config
 
-MODEL = config.CONFIG["MODEL"]
-
-
 def generate_response(message_history):
     response = ollama.chat(
-        model=MODEL,
+        model=config.CONFIG["MODEL"],
         messages=message_history,
         options={
-            'num_predict': 2048,
+            'num_predict': config.CONFIG["NUM_PREDICT"],
         }
     )
     return response['message']['content']
