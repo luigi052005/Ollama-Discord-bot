@@ -25,8 +25,7 @@ async def on_ready():
 async def on_message(message):
     if message.content.startswith("!again"):
         await message.delete()
-        print("Regenerating response...")
-        async for message in message.channel.history(limit=10):
+        async for message in message.channel.history(limit=config.CONFIG["HISTORY_LENGH"]):
             if message.author == bot.user:
                 await message.delete()
                 break
@@ -36,6 +35,13 @@ async def on_message(message):
         if mention in message.content:
             if message.author == bot.user:
                 return
+            if message.content == mention:
+                await message.channel.send("ERROR: Please provide a message")
+                await message.delete()
+                async for message in message.channel.history(limit=config.CONFIG["HISTORY_LENGH"]):
+                    if message.author == bot.user:
+                        await message.delete()
+                        break
 
             await respond(message)
         else:

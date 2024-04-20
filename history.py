@@ -2,20 +2,20 @@ import config
 from getattachments import get_attachments
 
 async def get_history(message_history, ctx, bot):
-    async for message in ctx.history(limit=10):
+    async for message in ctx.history(limit=config.CONFIG["HISTORY_LENGH"]):
         image_base64 = None
-        txt = None
+        plain_text = None
         #add bot message to history
         if message.author == bot.user:
             message_history.append({'role': 'assistant', 'content': message.content})
         #add user message to history
         if message.author != bot.user:
             if message.attachments:
-                image_base64, txt = await get_attachments(message, bot, image_base64, txt)
+                image_base64, plain_text = await get_attachments(message, bot, image_base64, plain_text)
             user_message = message.content.replace(f'<@{bot.user.id}>', '')
             message_history.append({
                 'role': 'user',
-                'content':f"{message.author.name}: {user_message} {[txt] if txt else ""}",
+                'content':f"{message.author.name}: {user_message} {[plain_text] if plain_text else ""}",
                 'images': [image_base64] if image_base64 else []
             })
 
