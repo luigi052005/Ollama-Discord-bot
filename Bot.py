@@ -23,12 +23,9 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.content.startswith("!again"):
+    if message.content.startswith("!regenerate"):
         await message.delete()
-        async for message in message.channel.history(limit=config.CONFIG["HISTORY_LENGH"]):
-            if message.author == bot.user:
-                await message.delete()
-                break
+        await delete_last_bot_message(message)
         await respond(message)
     else:
         mention = f'<@{bot.user.id}>'
@@ -38,10 +35,8 @@ async def on_message(message):
             if message.content == mention:
                 await message.channel.send("ERROR: Please provide a message")
                 await message.delete()
-                async for message in message.channel.history(limit=config.CONFIG["HISTORY_LENGH"]):
-                    if message.author == bot.user:
-                        await message.delete()
-                        break
+                await delete_last_bot_message(message)
+                return
 
             await respond(message)
         else:
@@ -56,5 +51,11 @@ async def respond(message):
     async with channel.typing():
         response = generate_response(message_history)
     await send_response(response, message)
+
+async def delete_last_bot_message(message):
+    async for message in message.channel.history(limit=config.CONFIG["HISTORY_LENGH"]):
+        if message.author == bot.user:
+            await message.delete()
+            break
 
 bot.run(DISCORD_TOKEN)

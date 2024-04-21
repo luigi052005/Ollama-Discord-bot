@@ -1,4 +1,5 @@
 async def send_response(response, ctx):
+    print(response)
     if response:
         if len(response) > 2000:
             print("The response was too long and has been truncated.")

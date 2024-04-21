@@ -10,12 +10,14 @@ async def get_history(message_history, ctx, bot):
             message_history.append({'role': 'assistant', 'content': message.content})
         #add user message to history
         if message.author != bot.user:
+            mention = f'<@{bot.user.id}>'
+            #if message.content != mention:
             if message.attachments:
                 image_base64, plain_text = await get_attachments(message, bot, image_base64, plain_text)
             user_message = message.content.replace(f'<@{bot.user.id}>', '')
             message_history.append({
                 'role': 'user',
-                'content':f"{message.author.name}: {user_message} {[plain_text] if plain_text else ""}",
+                'content':f"{message.created_at} {message.author.name}: {user_message} {[plain_text] if plain_text else ""}",
                 'images': [image_base64] if image_base64 else []
             })
 
