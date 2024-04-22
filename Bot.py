@@ -16,8 +16,6 @@ bot = commands.Bot(command_prefix="!", intents=intents, heartbeat_timeout=240)
 
 pull_model(MODEL)
 
-DISCORD_TOKEN = config.CONFIG["DISCORD_TOKEN"]
-
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
