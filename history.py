@@ -1,7 +1,10 @@
+
+import pytz
 import config
 from getattachments import get_attachments
 
 async def get_history(message_history, ctx, bot):
+    print("get_history")
     async for message in ctx.history(limit=config.CONFIG["HISTORY_LENGH"]):
         image_base64 = None
         plain_text = None
@@ -11,11 +14,15 @@ async def get_history(message_history, ctx, bot):
         #add user message to history
         if message.author != bot.user:
             user_message = message.content.replace(f'<@{bot.user.id}>', f'@{bot.user.name}')
+            timestamp = message.created_at
+            local_tz = pytz.timezone(config.CONFIG["LOCAL_TIMEZONE"])
+            local_time = timestamp.astimezone(local_tz)
+            timestamp = local_time.strftime('%Y-%m-%d %H:%M:%S')
             if message.attachments:
                 image_base64, plain_text = await get_attachments(message, bot, image_base64, plain_text)
             message_history.append({
                 'role': 'user',
-                'content':f"{message.created_at} {message.author.name}: {user_message} {[plain_text] if plain_text else ""}",
+                'content':f"{timestamp} {message.author.name}: {user_message} {[plain_text] if plain_text else ""}",
                 'images': [image_base64] if image_base64 else []
             })
 
