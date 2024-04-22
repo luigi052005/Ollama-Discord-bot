@@ -4,7 +4,6 @@ import config
 from getattachments import get_attachments
 
 async def get_history(message_history, ctx, bot):
-    print("get_history")
     async for message in ctx.history(limit=config.CONFIG["HISTORY_LENGH"]):
         image_base64 = None
         plain_text = None

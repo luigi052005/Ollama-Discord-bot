@@ -31,7 +31,6 @@ async def on_message(message):
        mention = f'<@{bot.user.id}>'
        if mention in message.content:
             if message.author != bot.user:
-                print("response1")
                 await respond(message)
 
 async def respond(message):
