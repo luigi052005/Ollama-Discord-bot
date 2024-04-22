@@ -10,6 +10,6 @@ async def get_attachments(message, bot, image_base64, plain_text):
                 image_base64 = await encode_image(url)
             elif attachment.content_type.startswith(('text')):
                 url = attachment.url
-                plain_text = await txt_content(url)
+                plain_text = await txt_content(url, attachment)
 
             return image_base64, plain_text

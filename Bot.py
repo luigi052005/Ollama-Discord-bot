@@ -28,19 +28,10 @@ async def on_message(message):
         await delete_last_bot_message(message)
         await respond(message)
     else:
-        mention = f'<@{bot.user.id}>'
-        if mention in message.content:
-            if message.author == bot.user:
-                return
-            if message.content == mention:
-                await message.channel.send("ERROR: Please provide a message")
-                await message.delete()
-                await delete_last_bot_message(message)
-                return
-
-            await respond(message)
-        else:
-            return
+       mention = f'<@{bot.user.id}>'
+       if mention in message.content:
+            if message.author != bot.user:
+                await respond(message)
 
 async def respond(message):
     channel = message.channel
