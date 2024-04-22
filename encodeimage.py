@@ -11,4 +11,3 @@ async def encode_image(url):
         return image_base64
     else:
         return
-

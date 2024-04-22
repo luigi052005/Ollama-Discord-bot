@@ -1,6 +1,5 @@
 import aiohttp
 
-
 async def txt_content(url, attachment):
     if url[0:26] == 'https://cdn.discordapp.com':
         async with aiohttp.ClientSession() as session:
