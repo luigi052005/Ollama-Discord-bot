@@ -37,12 +37,12 @@ async def regenerate(ctx):
     await message.delete()
     await delete_last_bot_message(message)
     await respond(message)
-
 @bot.command()
-async def dm(ctx, user:discord.Member):
+async def dm(ctx, user: discord.User):
     message = ctx.message
     dm = message.content.replace('!dm', '')
     dm = dm.replace(f'<@{user.id}>', '')
+    dm = dm.replace(f'{user.id}', '')
     await message.delete()
     await user.send(dm)
 
