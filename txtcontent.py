@@ -8,7 +8,8 @@ async def txt_content(url, attachment):
                 if attachment.content_type.startswith(('text')):
                     plain_text = await resp.read()
                     plain_text = plain_text.decode('utf-8')
+                    print(f"PLAIN_TEXT:{plain_text}")
                     return plain_text
                 if attachment.content_type.startswith(('application/pdf')):
                     pass
-                    #handel pdf
+                    #handle pdf

@@ -11,7 +11,6 @@ async def get_history(message_history, ctx, bot):
         #add user message to history
         if message.author != bot.user:
             user_message = message.content.replace(f'<@{bot.user.id}>', f'@{bot.user.name}')
-            print(user_message)
             if message.attachments:
                 image_base64, plain_text = await get_attachments(message, bot, image_base64, plain_text)
             message_history.append({
