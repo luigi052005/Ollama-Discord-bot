@@ -27,9 +27,13 @@ async def on_ready():
 async def on_message(message):
     await bot.process_commands(message)
     mention = f'<@{bot.user.id}>'
-    if mention in message.content:
+    if isinstance(message.channel, discord.DMChannel):
         if message.author != bot.user:
             await respond(message)
+    else:
+        if mention in message.content:
+            if message.author != bot.user:
+                await respond(message)
 
 @bot.command()
 async def regenerate(ctx):
