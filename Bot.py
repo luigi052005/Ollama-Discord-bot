@@ -23,15 +23,30 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.content.startswith("!regenerate"):
-        await message.delete()
-        await delete_last_bot_message(message)
-        await respond(message)
+    await bot.process_commands(message)
+    mention = f'<@{bot.user.id}>'
+    if isinstance(message.channel, discord.DMChannel):
+        if message.author != bot.user:
+            await respond(message)
     else:
-       mention = f'<@{bot.user.id}>'
-       if mention in message.content:
+        if mention in message.content:
             if message.author != bot.user:
                 await respond(message)
+
+@bot.command()
+async def regenerate(ctx):
+    message = ctx.message
+    await message.delete()
+    await delete_last_bot_message(message)
+    await respond(message)
+@bot.command()
+async def dm(ctx, user: discord.User):
+    message = ctx.message
+    dm = message.content.replace('!dm', '')
+    dm = dm.replace(f'<@{user.id}>', '')
+    dm = dm.replace(f'{user.id}', '')
+    await message.delete()
+    await user.send(dm)
 
 async def respond(message):
     channel = message.channel

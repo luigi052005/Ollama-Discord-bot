@@ -1,5 +1,5 @@
 from encodeimage import encode_image
-from txtcontent import  txt_content
+from txtcontent import txt_content
 
 async def get_attachments(message, bot, image_base64, plain_text):
     for attachment in message.attachments:
