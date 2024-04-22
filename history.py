@@ -1,4 +1,3 @@
-
 import pytz
 import config
 from getattachments import get_attachments
@@ -17,6 +16,7 @@ async def get_history(message_history, ctx, bot):
             local_tz = pytz.timezone(config.CONFIG["LOCAL_TIMEZONE"])
             local_time = timestamp.astimezone(local_tz)
             timestamp = local_time.strftime('%Y-%m-%d %H:%M:%S')
+            #get message attachments
             if message.attachments:
                 image_base64, plain_text = await get_attachments(message, bot, image_base64, plain_text)
             message_history.append({
