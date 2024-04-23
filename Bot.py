@@ -56,6 +56,7 @@ async def respond(message):
 
     async with channel.typing():
         response = generate_response(message_history)
+    print(response)
     await send_response(response, message)
 
 async def delete_last_bot_message(message):
