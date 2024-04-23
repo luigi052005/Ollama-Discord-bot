@@ -49,12 +49,11 @@ async def dm(ctx, user: discord.User):
     await user.send(dm)
 
 async def respond(message):
-    channel = message.channel
     ctx = await bot.get_context(message)
     message_history = []
     await get_history(message_history, ctx, bot)
 
-    async with channel.typing():
+    async with message.channel.typing():
         response = generate_response(message_history)
     print(response)
     await send_response(response, message)
