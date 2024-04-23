@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
 import config
-from pullmodel import pull_model
+from model_loader import pull_model
 from response_generator import generate_response
 from conversation_history import get_history
-from sendresponse import send_response
+from response_sender import send_response
 
 DISCORD_TOKEN = config.CONFIG["DISCORD_TOKEN"]
 MODEL = config.CONFIG["MODEL"]
