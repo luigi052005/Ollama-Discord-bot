@@ -1,4 +1,4 @@
-from encodeimage import encode_image
+from image_encoder import encode_image
 from text_file_handler import txt_content
 
 async def get_attachments(message, bot, image_base64, text_files):
