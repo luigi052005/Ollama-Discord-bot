@@ -3,7 +3,7 @@ from discord.ext import commands
 import config
 from pullmodel import pull_model
 from generateresponse import generate_response
-from history import get_history
+from conversation_history import get_history
 from sendresponse import send_response
 
 DISCORD_TOKEN = config.CONFIG["DISCORD_TOKEN"]
