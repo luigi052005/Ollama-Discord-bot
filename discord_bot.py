@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
 import config
-from pullmodel import pull_model
-from generateresponse import generate_response
-from history import get_history
-from sendresponse import send_response
+from model_loader import pull_model
+from response_generator import generate_response
+from conversation_history import get_history
+from response_sender import send_response
 
 DISCORD_TOKEN = config.CONFIG["DISCORD_TOKEN"]
 MODEL = config.CONFIG["MODEL"]
@@ -49,13 +49,13 @@ async def dm(ctx, user: discord.User):
     await user.send(dm)
 
 async def respond(message):
-    channel = message.channel
     ctx = await bot.get_context(message)
     message_history = []
     await get_history(message_history, ctx, bot)
 
-    async with channel.typing():
+    async with message.channel.typing():
         response = generate_response(message_history)
+    print(response)
     await send_response(response, message)
 
 async def delete_last_bot_message(message):

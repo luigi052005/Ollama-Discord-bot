@@ -6,7 +6,7 @@ def generate_response(message_history):
         model=config.CONFIG["MODEL"],
         messages=message_history,
         options={
-            'num_predict': config.CONFIG["NUM_PREDICT"],
+            "num_predict": 8000
         }
     )
     return response['message']['content']

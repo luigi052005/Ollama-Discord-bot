@@ -32,10 +32,7 @@ cd Ollama-Discord-Bot
    # config.py
    
    CONFIG = {
-    'DISCORD_TOKEN': 'Token',
-    'MODEL': 'llama3',
-    'SYSTEM': "You are an artificial intelligence assistant. You give helpful, detailed, and polite answers to the user's questions.",
-    }
+    'DISCORD_TOKEN': 'Your_Bot_Token',
    ```
 
 4. **Run the Bot:**
