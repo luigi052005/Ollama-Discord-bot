@@ -9,5 +9,3 @@ async def encode_image(url):
 
         image_base64 = base64.b64encode(image_buffer).decode('utf-8')
         return image_base64
-    else:
-        return

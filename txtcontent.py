@@ -6,8 +6,7 @@ async def txt_content(url, attachment):
             async with session.get(url) as resp:
                 if attachment.content_type.startswith(('text')):
                     plain_text = await resp.read()
-                    plain_text = plain_text.decode('utf-8')
-                    print(f"PLAIN_TEXT:{plain_text}")
+                    plain_text = attachment.filename ,plain_text.decode('utf-8')
                     return plain_text
                 if attachment.content_type.startswith(('application/pdf')):
                     pass
