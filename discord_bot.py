@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import config
 from pullmodel import pull_model
-from generateresponse import generate_response
+from response_generator import generate_response
 from conversation_history import get_history
 from sendresponse import send_response
 
