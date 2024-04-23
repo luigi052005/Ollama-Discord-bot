@@ -1,6 +1,6 @@
 import pytz
 import config
-from getattachments import get_attachments
+from attachment_handler import get_attachments
 
 async def get_history(message_history, ctx, bot):
     async for message in ctx.history(limit=config.CONFIG["HISTORY_LENGH"]):
