@@ -1,5 +1,6 @@
 ollama
 discord
 aiohttp
-base64
-pytz
+pdfminer
+pdfminer.six
+chardet

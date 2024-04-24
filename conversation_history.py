@@ -21,7 +21,7 @@ async def get_history(message_history, ctx, bot):
                 image_base64, text_files = await get_attachments(message, bot, image_base64, text_files)
             message_history.append({
                 'role': 'user',
-                'content':f"{timestamp} {message.author.name}: {user_message} {[text_files] if text_files else ""}",
+                'content':f"{timestamp} {message.author.name}: {user_message} {[text_files] if text_files else ''}",
                 'images': [image_base64] if image_base64 else []
             })
 

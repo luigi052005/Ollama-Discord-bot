@@ -2,13 +2,6 @@
 
 A Discord Bot that utilizes the Ollama API.
 
-## Installation
-
-To install the necessary dependencies, execute the following command in your terminal:
-
-```bash
-pip install -r requirements.txt
-```
 
 ## Getting Started
 
@@ -24,7 +17,14 @@ git clone https://github.com/luigi052005/Ollama-Discord-bot
 cd Ollama-Discord-Bot
 ```
 
-3. **Configuration:**
+3. **Install Dependencies:** To install the necessary dependencies, execute the following command in your terminal:
+
+```bash
+pip install -r requirements.txt
+```
+
+
+4. **Configuration:**
    
    - Open `config.py` and enter your Discord bot token.
    
@@ -35,7 +35,7 @@ cd Ollama-Discord-Bot
     'DISCORD_TOKEN': 'Your_Bot_Token',
    ```
 
-4. **Run the Bot:**
+5. **Run the Bot:**
    
    Execute the following command to start the bot:
 
