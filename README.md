@@ -25,17 +25,22 @@ pip install -r requirements.txt
 
 
 4. **Configuration:**
-   
    - Open `config.py` and enter your Discord bot token.
-   
+
    ```python
    # config.py
-   
    CONFIG = {
-    'DISCORD_TOKEN': 'Your_Bot_Token',
+       'DISCORD_TOKEN': 'Your_Bot_Token',
+       # Add any other required configurations here
+   }
    ```
+   
+   - Make sure your bot has the following permissions:
+   
+   ![image](https://github.com/luigi052005/Ollama-Discord-bot/assets/101733154/4e12e54e-eaeb-4352-88ce-c8847aaa8f27)
 
-5. **Run the Bot:**
+
+5. **Run the Bot:** Start the bot by executing the following command:
    
    Execute the following command to start the bot:
 
@@ -45,3 +50,4 @@ python Bot.py
 
 Now your Ollama Discord Bot should be up and running, ready to enhance your Discord server experience!
 Ping your bot and enjoy!
+
