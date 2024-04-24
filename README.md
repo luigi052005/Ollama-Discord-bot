@@ -41,8 +41,6 @@ pip install -r requirements.txt
 
 
 5. **Run the Bot:** Start the bot by executing the following command:
-   
-   Execute the following command to start the bot:
 
 ```bash
 python Bot.py
