@@ -1,5 +1,5 @@
 CONFIG = {
-    'DISCORD_TOKEN': 'Token',
+    'DISCORD_TOKEN': 'Your_Bot_Token',
     'MODEL': 'llama3',
     'LOCAL_TIMEZONE': 'Europe/Berlin',
     'NUM_PREDICT': 2048,
