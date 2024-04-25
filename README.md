@@ -47,5 +47,10 @@ python discord_bot.py
 ```
 
 Now your Ollama Discord Bot should be up and running, ready to enhance your Discord server experience!
-Ping your bot and enjoy!
+Remember to mention the bot directly when you want to engage in conversation.
+
+
+
+
+
 
