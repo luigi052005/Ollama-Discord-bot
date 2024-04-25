@@ -8,6 +8,8 @@ async def get_history(message_history, ctx, bot):
         text_files = []
         #add bot message to history
         if message.author == bot.user:
+            if not message.content.strip():
+                return
             message_history.append({'role': 'assistant', 'content': message.content})
         #add user message to history
         if message.author != bot.user:
