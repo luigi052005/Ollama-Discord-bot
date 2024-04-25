@@ -43,7 +43,7 @@ pip install -r requirements.txt
 5. **Run the Bot:** Start the bot by executing the following command:
 
 ```bash
-python Bot.py
+python discord_bot.py
 ```
 
 Now your Ollama Discord Bot should be up and running, ready to enhance your Discord server experience!
