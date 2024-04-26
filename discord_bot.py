@@ -6,8 +6,9 @@ from response_generator import generate_response
 from conversation_history import get_history
 from response_sender import send_response
 
-DISCORD_TOKEN = config.CONFIG["DISCORD_TOKEN"]
-MODEL = config.CONFIG["MODEL"]
+DISCORD_TOKEN = config.DISCORD_TOKEN
+MODEL = config.MODEL
+HISTORY_LENGH = config.HISTORY_LENGH
 
 intents = discord.Intents.default()
 intents.typing = True
@@ -59,7 +60,7 @@ async def respond(message):
     await send_response(response, message)
 
 async def delete_last_bot_message(message):
-    async for message in message.channel.history(limit=config.CONFIG["HISTORY_LENGH"]):
+    async for message in message.channel.history(limit=HISTORY_LENGH):
         if message.author == bot.user:
             await message.delete()
             break
