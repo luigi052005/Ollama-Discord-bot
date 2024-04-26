@@ -7,15 +7,13 @@ from conversation_history import get_history
 from response_sender import send_response
 
 DISCORD_TOKEN = config.DISCORD_TOKEN
-MODEL = config.MODEL
-HISTORY_LENGH = config.HISTORY_LENGH
-
+HISTORY_LENGTH = config.HISTORY_LENGTH
 intents = discord.Intents.default()
 intents.typing = True
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents, heartbeat_timeout=240)
 
-pull_model(MODEL)
+pull_model()
 
 @bot.event
 async def on_ready():
@@ -60,7 +58,7 @@ async def respond(message):
     await send_response(response, message)
 
 async def delete_last_bot_message(message):
-    async for message in message.channel.history(limit=HISTORY_LENGH):
+    async for message in message.channel.history(limit=HISTORY_LENGTH):
         if message.author == bot.user:
             await message.delete()
             break

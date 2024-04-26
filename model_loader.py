@@ -1,6 +1,9 @@
 import ollama
+import config
 
-def pull_model(MODEL):
+MODEL = config.MODEL
+
+def pull_model():
     try:
         ollama.chat(MODEL)
     except ollama.ResponseError as e:

@@ -25,14 +25,12 @@ pip install -r requirements.txt
 
 
 4. **Configuration:**
+   - Rename `config` to `config.py`
    - Open `config.py` and enter your Discord bot token.
 
    ```python
-   # config
-   CONFIG = {
-       'DISCORD_TOKEN': 'Your_Bot_Token',
-       # Add any other required configurations here
-   }
+   # config.py
+   DISCORD_TOKEN = "Your_Discord_Token"
    ```
    
    - Make sure your bot has the following permissions:
