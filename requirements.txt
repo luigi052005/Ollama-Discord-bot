@@ -4,3 +4,4 @@ aiohttp
 pdfminer
 pdfminer.six
 chardet
+pillow
