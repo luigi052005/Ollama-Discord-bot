@@ -22,15 +22,17 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    await bot.process_commands(message)
-    mention = f'<@{bot.user.id}>'
-    if isinstance(message.channel, discord.DMChannel):
-        if message.author != bot.user:
-            await respond(message)
+    if bot.command_prefix in message.content:
+        await bot.process_commands(message)
     else:
-        if mention in message.content:
+        mention = f'<@{bot.user.id}>'
+        if isinstance(message.channel, discord.DMChannel):
             if message.author != bot.user:
                 await respond(message)
+        else:
+            if mention in message.content:
+                if message.author != bot.user:
+                    await respond(message)
 
 @bot.command()
 async def regenerate(ctx):
@@ -46,6 +48,14 @@ async def dm(ctx, user: discord.User):
     dm = dm.replace(f'{user.id}', '')
     await message.delete()
     await user.send(dm)
+
+@bot.command()
+async def deletelastmessage(ctx):
+   message = ctx.message
+   await delete_last_bot_message(message)
+   if isinstance(message.channel, discord.DMChannel):
+       return
+   await message.delete()
 
 async def respond(message):
     ctx = await bot.get_context(message)
