@@ -50,7 +50,6 @@ async def get_history(message_history, ctx, bot):
     else:
         print("No relevant memories found")
 
-    # Combine system message and memory
     system_message = {
         'role': 'system',
         'content': f"{SYSTEM}\n\n{memory_content}".strip()

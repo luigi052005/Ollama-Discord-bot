@@ -1,10 +1,13 @@
-import discord
-from discord.ext import commands
 import config
+import time
+import discord
+import json
+from discord.ext import commands
 from model_loader import pull_model
 from response_generator import generate_response
 from conversation_history import get_history
 from response_sender import send_response
+from memory_module import LongTermMemory
 
 DISCORD_TOKEN = config.DISCORD_TOKEN
 HISTORY_LENGTH = config.HISTORY_LENGTH
@@ -14,6 +17,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents, heartbeat_timeout=240)
 
 pull_model()
+memory = LongTermMemory()
 
 @bot.event
 async def on_ready():
@@ -25,6 +29,7 @@ async def on_message(message):
     if bot.command_prefix in message.content:
         await bot.process_commands(message)
     else:
+        print(f'{message.author}: {message.content}')
         mention = f'<@{bot.user.id}>'
         if isinstance(message.channel, discord.DMChannel):
             if message.author != bot.user:
@@ -57,6 +62,14 @@ async def deletelastmessage(ctx):
        return
    await message.delete()
 
+@bot.command()
+async def panic(ctx):
+   message = ctx.message
+   await delete_all_messages(message)
+   if isinstance(message.channel, discord.DMChannel):
+       return
+   await message.delete()
+
 async def respond(message):
     ctx = await bot.get_context(message)
     message_history = []
@@ -64,7 +77,8 @@ async def respond(message):
 
     async with message.channel.typing():
         response = generate_response(message_history)
-    print(response)
+
+    print(f'{bot.user.display_name}: {response}')
     await send_response(response, message)
 
 async def delete_last_bot_message(message):
@@ -72,5 +86,12 @@ async def delete_last_bot_message(message):
         if message.author == bot.user:
             await message.delete()
             break
+
+async def delete_all_messages(message):
+    async for message in message.channel.history(limit=HISTORY_LENGTH):
+        if message.author == bot.user:
+            time.sleep(0.6)
+            await message.delete()
+
 
 bot.run(DISCORD_TOKEN)

@@ -2,8 +2,6 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 import sqlite3
-import json
-
 
 class LongTermMemory:
     def __init__(self, db_path='memory.db', model_name='all-MiniLM-L6-v2'):
