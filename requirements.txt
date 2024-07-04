@@ -5,3 +5,4 @@ pdfminer
 pdfminer.six
 chardet
 pillow
+yt_dlp
