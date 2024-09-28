@@ -1,6 +1,7 @@
 import config
 import discord
 from discord.ext import commands
+from discord import app_commands
 from src.LLM.model_loader import pull_model
 from src.MusicBot.music_handler import Music
 from src.LLM.ai_handler import AI
@@ -63,9 +64,11 @@ async def on_ready():
     print(f'We have logged in as {bot.user}')
     print(f'<@{bot.user.id}>')
     await bot.add_cog(AI(bot))
-    await bot.add_cog(Music(bot))
+    music_cog = Music(bot)
+    await bot.add_cog(music_cog)
 
-    bot.help_command = CustomHelpCommand()
+    print("Syncing commands...")
+    await bot.tree.sync()
 
 @bot.event
 async def on_message(message):

@@ -1,7 +1,5 @@
 import pytz
 import config
-import json
-from src.LLM.tools import tools
 from src.LLM.attachment_handler import get_attachments
 
 HISTORY_LENGTH = config.HISTORY_LENGTH
@@ -21,6 +19,7 @@ async def get_history(message_history, ctx, bot):
         # add user message to history
         if message.author != bot.user:
             user_message = message.content.replace(f'<@{bot.user.id}>', f'@{bot.user.name}')
+            # Format Time Stamp
             timestamp = message.created_at
             local_tz = pytz.timezone(LOCAL_TIMEZONE)
             local_time = timestamp.astimezone(local_tz)
@@ -36,7 +35,7 @@ async def get_history(message_history, ctx, bot):
 
     system_message = {
         'role': 'system',
-        'content': f"{SYSTEM}\nAvailable tools: {json.dumps(tools, indent=2)}\n"
+        'content': f"{SYSTEM}"
     }
     message_history.append(system_message)
     message_history.reverse()

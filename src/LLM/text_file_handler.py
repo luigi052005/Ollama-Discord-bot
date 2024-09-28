@@ -11,7 +11,7 @@ async def txt_content(url, attachment):
                 content = await resp.read()
                 file_extension = attachment.filename.split(".")[-1].lower()
 
-                if file_extension in ["txt", "md", "py", "java", "cpp", "cs", "php", "js", "html", "css"]:
+                if file_extension in ["txt", "md", "py", "java", "cpp", "cs", "php", "js", "html", "css", "json"]:
                     # Handle Text Files
                     with tempfile.NamedTemporaryFile(delete=False, mode="w+b") as temp_file:
                         temp_file.write(content)
@@ -28,7 +28,7 @@ async def txt_content(url, attachment):
                     finally:
                         os.unlink(temp_file_path)
 
-                if attachment.content_type.startswith('application/pdf'):
+                elif attachment.content_type.startswith('application/pdf'):
                     # Handle PDF
                     with tempfile.NamedTemporaryFile(delete=False) as temp_pdf:
                         temp_pdf.write(content)
@@ -44,3 +44,6 @@ async def txt_content(url, attachment):
                         return attachment.filename, text
                     finally:
                         os.unlink(temp_pdf_path)
+
+                else:
+                    print("TextFormat not Supported")

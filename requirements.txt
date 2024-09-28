@@ -6,3 +6,5 @@ pdfminer.six
 chardet
 pillow
 yt_dlp
+pytz
+bs4

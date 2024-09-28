@@ -1,6 +1,7 @@
 import config
 import time
 import discord
+from discord import app_commands
 from discord.ext import commands
 from src.LLM.model_loader import pull_model
 from src.LLM.response_generator import generate_response
@@ -15,7 +16,7 @@ class AI(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='regenerate', help='Regenerates the last bot message')
+    @app_commands.command(name='regenerate', description='Regenerates the last bot message')
     async def regenerate(self, ctx):
         message = ctx.message
         await message.delete()
@@ -25,13 +26,13 @@ class AI(commands.Cog):
     @commands.command(name='dm', help='Can be used to dm a user on the server', hidden=True)
     async def dm(self, ctx, user: discord.User):
         message = ctx.message
-        dm = message.content.replace('!dm', '')
+        dm = message.content.replace('&dm', '')
         dm = dm.replace(f'<@{user.id}>', '')
         dm = dm.replace(f'{user.id}', '')
         await message.delete()
         await user.send(dm)
 
-    @commands.command(name='deletelastmessage', help='Deletes the last bot message')
+    @app_commands.command(name='deletelastmessage', description='Deletes the last bot message')
     async def deletelastmessage(self, ctx):
         message = ctx.message
         await self.delete_last_bot_message(message)
