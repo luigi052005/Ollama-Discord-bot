@@ -1,10 +1,10 @@
 ollama
 discord
-aiohttp
-pdfminer
+tqdm
+pytz
+Pillow
 pdfminer.six
 chardet
-pillow
 yt_dlp
-pytz
-bs4
+speechrecognition
+PyNaCl

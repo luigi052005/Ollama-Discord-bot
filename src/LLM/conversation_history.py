@@ -39,3 +39,4 @@ async def get_history(message_history, ctx, bot):
     }
     message_history.append(system_message)
     message_history.reverse()
+    print(message_history)

@@ -1,15 +1,17 @@
 import config
 import discord
 from discord.ext import commands
-from discord import app_commands
 from src.LLM.model_loader import pull_model
-from src.MusicBot.music_handler import Music
 from src.LLM.ai_handler import AI
+from src.MusicBot.music_handler import Music
+from src.VoiceMode.voice import VoiceMode
+from src.VoiceMode.VoiceRecognition import VoiceRecognition
 
-DISCORD_TOKEN = config.DISCORD_TOKEN
+BOT_TOKEN = config.BOT_TOKEN
 intents = discord.Intents.default()
 intents.typing = True
 intents.message_content = True
+intents.voice_states = True
 bot = commands.Bot(command_prefix="&", intents=intents, heartbeat_timeout=240)
 
 pull_model()
@@ -61,13 +63,12 @@ class CustomHelpCommand(commands.HelpCommand):
 
 @bot.event
 async def on_ready():
-    print(f'We have logged in as {bot.user}')
-    print(f'<@{bot.user.id}>')
+    print(f"Logged in as {bot.user} (ID: {bot.user.id})")
     await bot.add_cog(AI(bot))
     music_cog = Music(bot)
     await bot.add_cog(music_cog)
-
-    print("Syncing commands...")
+    await bot.add_cog(VoiceMode(bot))
+    await bot.add_cog(VoiceRecognition(bot))
     await bot.tree.sync()
 
 @bot.event
@@ -87,4 +88,4 @@ async def on_message(message):
                     ai_cog = bot.get_cog('AI')
                     await ai_cog.respond(message)
 
-bot.run(DISCORD_TOKEN)
+bot.run(BOT_TOKEN)
