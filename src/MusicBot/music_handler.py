@@ -126,14 +126,10 @@ class Music(commands.Cog):
             await interaction.response.send_message(embed=embed)
             return
 
-        voice_channel = interaction.user.voice.channel
-        if not interaction.guild.voice_client:
-            try:
-                await voice_channel.connect()
-            except Exception as e:
-                embed = discord.Embed(title="Connection Error", description=f"Error connecting to the voice channel: {e}", color=discord.Color.red())
-                await interaction.response.send_message(embed=embed)
-                return
+        channel = interaction.user.voice.channel
+        voice = interaction.guild.voice_client
+        if channel:
+            await channel.connect()
 
         await interaction.response.defer()
         try:
