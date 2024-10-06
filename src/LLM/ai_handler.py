@@ -17,11 +17,18 @@ class AI(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name='regenerate', description='Regenerates the last bot message')
-    async def regenerate(self, ctx):
-        message = ctx.message
-        await message.delete()
-        await self.delete_last_bot_message(message)
-        await self.respond(message)
+    async def regenerate(self, interaction: discord.Interaction):
+        message_history = []
+        channel = interaction.channel
+        await self.delete_last_bot_message(channel)
+        # respond
+        await get_history(message_history, channel, self.bot)
+        await interaction.response.defer()
+        async with channel.typing():
+            response = await generate_response(message_history)
+
+        await interaction.followup.send(response)
+
 
     @commands.command(name='dm', help='Can be used to dm a user on the server', hidden=True)
     async def dm(self, ctx, user: discord.User):
@@ -33,13 +40,13 @@ class AI(commands.Cog):
         await user.send(dm)
 
     @app_commands.command(name='deletelastmessage', description='Deletes the last bot message')
-    async def deletelastmessage(self, ctx):
-        message = ctx.message
-        await self.delete_last_bot_message(message)
-        if not isinstance(message.channel, discord.DMChannel):
-            await message.delete()
+    async def deletelastmessage(self, interaction: discord.Interaction):
+        channel = interaction.channel
+        await self.delete_last_bot_message(channel)
+        if not isinstance(channel, discord.DMChannel):
+            await interaction.response.defer()
 
-    @commands.command(name='panic', help='Deletes the last bot message', hidden=True)
+    @commands.command(name='clear', help='Deletes all bot message', hidden=True)
     async def panic(self, ctx):
         message = ctx.message
         await self.delete_all_messages(message)
@@ -52,12 +59,11 @@ class AI(commands.Cog):
         await get_history(message_history, ctx, self.bot)
 
         async with message.channel.typing():
-            response = generate_response(message_history)
+            response = await generate_response(message_history)
+        await send_response(response, message.channel)
 
-        await send_response(response, message)
-
-    async def delete_last_bot_message(self, message):
-        async for message in message.channel.history(limit=HISTORY_LENGTH):
+    async def delete_last_bot_message(self, channel):
+        async for message in channel.history(limit=HISTORY_LENGTH):
             if message.author == self.bot.user:
                 await message.delete()
                 break
