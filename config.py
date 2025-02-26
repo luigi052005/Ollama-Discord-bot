@@ -1,4 +1,4 @@
-BOT_TOKEN = "MTA1NDczNTY2NDY3MjkzNTk3Ng.Ge7l0G.UXxEfdVRraubENvl2iOQiTaujB7p0TsPEe7_5Y"
+BOT_TOKEN = ""
 MODEL = "qwen2.5:14b"
 IMAGE_MODEL = ""
 LOCAL_TIMEZONE = "Europe/Berlin"
